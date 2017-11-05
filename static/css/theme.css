@@ -19637,7 +19637,7 @@ body {
 }
 
 .index-app-hero {
-  background: url("../images/unsplash/jared-erondu-10472.jpg");
+  background: url("{% static 'img/others/jared-erondu-10472.jpg' %}");
   background-position: center 0;
   background-size: cover;
   background-attachment: fixed;

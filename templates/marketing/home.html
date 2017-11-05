@@ -1,7 +1,31 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} {{ block.super }} {% endblock %}
 
-{% block extra-css %}{% endblock %}
+{% block extra-css %}
+<style>
+.index-app-hero {
+  background: url("{% static 'img/others/jared-erondu-10472.jpg' %}");
+  background-position: center 0;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 590px;
+  padding-top: 150px;
+  overflow: hidden;
+  position: relative;
+}
+
+.business-single-client {
+  margin-top: 160px;
+  height: 500px;
+  background-image: url("{% static 'img/others/photo-1479243396208-be1751535cdb.jpg' %}");
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+}
+</style>
+
+{% endblock %}
 
 
 {% block content %}
@@ -13,11 +37,12 @@
         <br> Make better decisions
         </h2>
         <p class="customFadeInUp">
-            A CRM application that lets you track all your customers, meetings, notes, and plans. Never forget an important contact or follow up task again, <br>
+            A CRM application that lets you track all your customers, meetings, notes, and plans.<br> 
+            Never forget an important contact or follow up task again, <br>
             what are you waiting for?
         </p>
         
-        <a href="#" class="btn-pill btn-pill-success btn-pill-lg customFadeInUp">Sign Up Now for CAD30/Month </a>
+        <a href="#" class="btn-pill btn-pill-success btn-pill-lg customFadeInUp">Sign Up Now for CAD 30/Month </a>
     </div>
 </div>
     
@@ -31,7 +56,7 @@
     
       <div class="index-app-features">
         <section class="clearfix">
-          <img src="images/devices/devices-4.png" class="browser" />
+          <img src="{% static 'img/devices/devices-4.png' %}" class="browser" />
     
           <div class="info">
             <h3>Why trackIt</h3>
@@ -125,7 +150,7 @@
           </h4>
         </header>
         <section class="clearfix">
-          <img src="images/devices/iphone-14.png" class="devices float-right" />
+          <img src="{% static 'img/devices/iphone-14.png' %}" class="devices float-right" />
     
           <h4>Win Business</h4>
           <p>
@@ -159,7 +184,7 @@
     
         <div class="index-app-devices">
         <div class="container">
-            <img src="images/devices/devices-4.png" class="img-fluid d-block mx-auto">
+            <img src="{% static 'img/devices/devices-4.png' %}" class="img-fluid d-block mx-auto">
     
             <div class="cta">
             <h3>
