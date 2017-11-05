@@ -13,6 +13,21 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 
     {% block extra-css %}{% endblock %}
+
+    <script>
+        $(function () {
+            if (!window.utils.isMobile()) {
+            // parallax header
+            $(window).scroll(function() {
+                var scroll = $(window).scrollTop(), 
+                slowScroll = scroll/4,
+                slowBg = slowScroll;
+
+                $('.index-app-hero').css("background-position", "center " + -slowBg + "px");
+            });
+            }
+        });
+    </script>
 </head>
 <body>
     {% include 'navbar.html' %}
