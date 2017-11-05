@@ -7,7 +7,9 @@ from marketing.views import HomePage
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-     url(r'^$', HomePage.as_view(), name='home')
+    url(r'^subscribe/', include('subscribers.urls',namespace='subscribers')),
+    url(r'^accounts/',include('django.contrib.auth.urls')),
+    url(r'^$', HomePage.as_view(), name='home')
 ]
 
 
