@@ -6,6 +6,8 @@ from django.forms.forms import NON_FIELD_ERRORS
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.http import HttpResponseRedirect
+
 import stripe
 
 
@@ -68,11 +70,18 @@ def subscriber_new(request):
                     'form':form,
                     'STRIPE_PUBLISHABLE_KEY':settings.STRIPE_PUBLISHABLE_KEY}
                 return render(request, template, context)
-            return reverse_lazy('login')
+            a_u = authenticate(username=username, password=password)
+            if a_u is not None:
+                if a_u.is_active:
+                    login(request, a_u)
+                    return reverse_lazy('account_list')
+                else:
+                    return HttpResponseRedirect(reverse('subscribers:sub_new'))
+            # return reverse_lazy('login')
     else:
         form = SubscriberForm()
 
     template='subscribers/subscriber_new.html'
-    context = {'form':form}
+    context = {'form':form,'STRIPE_PUBLISHABLE_KEY':settings.STRIPE_PUBLISHABLE_KEY}
 
     return render(request,template,context)

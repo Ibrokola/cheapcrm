@@ -4,83 +4,280 @@
 {% block title %}Signup | {{ block.super }}{% endblock %}
 
 {% block content %}
-<div id="content-container" class="container p-none" style="padding-top:100px">
-    <div class="side-p">
-        <form id="user-reg-form" action="." method="POST">
-            {% csrf_token %}
-            <h4 class="h4-responsive">Signup for a CAD20 Monthly Subscription</h4>
-            <h6 class="sn-sh h6-responsive">CREATE A USERNAME AND PASSWORD</h6>
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th>{{ form.username.label }}</th>
-                        <th>{{ form.email.label }}</th>
-                    </tr>
-                    <tr>
-                        <td>{{ form.username }}</td>
-                        <td>{{ form.email }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.username.errors }}</td>
-                        <td>{{ form.email.errors }}</td>
-                    </tr>
-                    <tr>
-                        <th>Password</th>
-                        <th>Confirm Password</th>
-                    </tr>
-                    <tr>
-                        <td>{{ form.password1 }}</td>
-                        <td>{{ form.password2 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.password1.errors }}</td>
-                        <td>{{ form.password2.errors }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h6 class="sn-sh h6-responsive">YOUR BILLING ADDRESS</h6>
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th>{{ form.first_name.label }}</th>
-                        <th>{{ form.last_name.label }}</th>
-                    </tr>
-                    <tr>
-                        <td>{{ form.first_name }}</td>
-                        <td>{{ form.first_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.first_name.errors }}</td>
-                        <td>{{ form.first_name.errors }}</td>
-                    </tr>
-                    <tr>
-                        <th>{{ form.address_one.label }}</th>
-                        <th>{{ form.address_two.label }}</th>
-                    </tr>
-                    <tr>
-                        <td>{{ form.address_one }}</td>
-                        <td>{{ form.address_two }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.address_one.errors }}</td>
-                        <td>{{ form.address_two.errors }}</td>
-                    </tr>
-                    <tr>
-                        <th>{{ form.city.label }}</th>
-                        <th>{{ form.province.label }}</th>
-                    </tr>
-                    <tr>
-                        <td>{{ form.city }}</td>
-                        <td>{{ form.province }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.city.errors }}</td>
-                        <td>{{ form.province.errors }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        {# Credit Card Section #}
+<!-- <body class="signup-page"> -->
+    <div id="content-container" class="container p-none" style="padding-top:100px">
+        <div class="side-p">
+            <form id="user-reg-form" action="." method="POST">
+                {% csrf_token %}
+                <h4 class="h4-responsive">Signup for a CAD20 Monthly Subscription</h4>
+                <br>
+                <h6 class="sn-sh h6-responsive">CREATE A USERNAME AND PASSWORD</h6>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>{{ form.username.label }}</th>
+                            <th>{{ form.email.label }}</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form.username }}</td>
+                            <td>{{ form.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.username.errors }}</td>
+                            <td>{{ form.email.errors }}</td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <th>Confirm Password</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form.password1 }}</td>
+                            <td>{{ form.password2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.password1.errors }}</td>
+                            <td>{{ form.password2.errors }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h6 class="sn-sh h6-responsive">YOUR BILLING ADDRESS</h6>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>{{ form.first_name.label }}</th>
+                            <th>{{ form.last_name.label }}</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form.first_name }}</td>
+                            <td>{{ form.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.first_name.errors }}</td>
+                            <td>{{ form.first_name.errors }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ form.address_one.label }}</th>
+                            <th>{{ form.address_two.label }}</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form.address_one }}</td>
+                            <td>{{ form.address_two }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.address_one.errors }}</td>
+                            <td>{{ form.address_two.errors }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ form.city.label }}</th>
+                            <th>{{ form.province.label }}</th>
+                        </tr>
+                        <tr>
+                            <td>{{ form.city }}</td>
+                            <td>{{ form.province }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.city.errors }}</td>
+                            <td>{{ form.province.errors }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <div class="container">
+                
+            </div>
+            <form action="/charge" id="payment-form" method="POST">
+                <h5 class="sn-sh">CREDIT OR DEBIT CARD</h5>
+                <!-- <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Card Number</th>
+                            <th>CVC</th>
+                            <th>Exp Month</th>
+                            <th>Exp Year</th>
+                        </tr>
+                        <tr>
+                            <td><input type="text" size="32" data-stripe="number" class="col-md-10 form-control"></td>
+                            <td><input type="text" size="4" data-stripe="cvc" class="col-md-3 form-control"></td>
+                            <td><input type="text" size="2" data-stripe="exp-month" class="col-md-3 form-control"></td>
+                            <td><input type="text" size="4" data-stripe="exp-year" class="col-md-3 form-control"></td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <div class="form-row">
+                    <!-- <label for="card-element">
+                        Credit or debit card
+                    </label>
+                    <br> -->
+                    <div id="card-element">
+                        <!-- a Stripe Element will be inserted here. -->
+                    </div>
+                    <br>
+                    <!-- Used to display form errors -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
+                <br>
+                <div class="form-field">
+                    <label class="terms">
+                        <input type="checkbox" name="terms">
+                        I've read & agree with the <a href="#">Terms</a>.
+                    </label>
+                </div>
+                
+                <!-- <br> -->
+                <input type="submit" id="payment-submit" value="Signup for CAD 20/Month" class="btn-shadow btn-shadow-primary btn-block">
+            </form>
+            <br>
+            <div class="form-bottom text-center">
+                Already have an account?
+                <a href="/login/">Sign in</a>
+            </div>
+        </div>
     </div>
-</div>
+<!-- </body> -->
+{% endblock %}
+
+{% block extra-js %}
+<script>
+    var stripe = Stripe("pk_test_SBtDG8poKB0sOn5SixvWTssa");
+    var elements = stripe.elements();
+    var card = elements.create('card',{
+        iconStyle: 'solid',
+        style: {
+            base: {
+                color: '#32325d',
+                lineHeight: '24px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                  color: '#aab7c4'
+                }
+              },
+              invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        },
+        classes: {
+            focus: 'is-focused',
+            empty: 'is-empty',
+        },  
+    });
+    card.mount('#card-element');
+
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function(event) {
+    var displayError = document.getElementById('card-errors');
+    if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    // Handle form submission
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function(result) {
+            if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+            } else {
+            // Send the token to your server
+            stripeTokenHandler(result.token);
+            }
+        });
+    });
+
+    jQuery(function($){
+        $('#payment-form').submit(function(event) {
+            form = $(this);
+
+            form.find('#payment-submit').prop('disabled',true);
+
+            return false;
+        });
+
+    });
+
+    // var stripeResponseHandler = function(status, response) {
+    // // Grab the form:
+    // var form = document.getElementById('payment-form');
+    // var regform = document.getElementById('user-reg-form');
+
+    // if (response.error) { // Problem!
+    //     // Show the errors on the form:
+    //     // form.find('.payment-errors').text(response.error.message)
+    //     regform.find('#payment-submit').prop('disabled',false)
+
+    // } else { // Token was created!
+    //     // Get the token ID:
+    //     var token = response.id;
+
+    //     // Insert the token ID into the form so it gets submitted to the server
+    //     var form = document.getElementById('payment-form');
+    //     var hiddenInput = document.createElement('input');
+    //     hiddenInput.setAttribute('type', 'hidden');
+    //     hiddenInput.setAttribute('name', 'stripeToken');
+    //     hiddenInput.setAttribute('value', token);
+    //     form.appendChild(hiddenInput);
+
+    //     // Submit the form
+    //     form.submit();
+    // }
+    // };
+
+    // // Create a token when the form is submitted
+    // var form = document.getElementById('payment-form');
+    //     form.addEventListener('submit', function(e) {
+    //     e.preventDefault();
+    //     Stripe.card.createToken(form, stripeResponseHandler);
+    // });
+
+    // function stripeTokenHandler(token) {
+    //     // Insert the token ID into the form so it gets submitted to the server
+    //     var form = document.getElementById('payment-form');
+    //     var hiddenInput = document.createElement('input');
+    //     hiddenInput.setAttribute('type', 'hidden');
+    //     hiddenInput.setAttribute('name', 'stripeToken');
+    //     hiddenInput.setAttribute('value', token.id);
+    //     form.appendChild(hiddenInput);
+
+    //     // Submit the form
+    //     form.submit();
+    // }
+
+    // function createToken() {
+    //     stripe.createToken(card).then(function(result) {
+    //         if (result.error) {
+    //         // Inform the user if there was an error
+    //         var errorElement = document.getElementById('card-errors');
+    //         errorElement.textContent = result.error.message;
+    //         } else {
+    //         // Send the token to your server
+    //         stripeTokenHandler(result.token);
+    //         }
+    //     });
+    // };
+
+    // var form = document.getElementById('payment-form');
+    //     form.addEventListener('submit', function(e) {
+    //     e.preventDefault();
+    //     createToken();
+    // });
+
+    // card.addEventListener('change', function(event) {
+    //     var displayError = document.getElementById('card-errors');
+    //     if (event.error) {
+    //         displayError.textContent = event.error.message;
+    //     } else {
+    //         displayError.textContent = '';
+    //     }
+    // });
+</script>
+
 {% endblock %}
