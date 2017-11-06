@@ -16,23 +16,43 @@ class AddressMixin(forms.ModelForm):
         }
 
 
-class SubscriberForm(AddressMixin,UserCreationForm):
+# class SubscriberForm(UserCreationForm):
     
-    class Meta:
-        model = get_user_model()
-        fields = ('first_name','last_name','email','username','password1','password2')
-        widgets = {
-            'first_name':forms.TextInput(attrs={'class':'form-control'}),
-            'last_name':forms.TextInput(attrs={'class':'form-control'}),
-            'email': forms.TextInput(attrs={'class':'form-control'}),
-            'username': forms.TextInput(attrs={'class':'form-control'}),
-            'password1': forms.TextInput(attrs={'class':'form-control'}),
-            'password2': forms.TextInput(attrs={'class':'form-control'}),
-        }
+#     class Meta:
+#         model = get_user_model()
+#         fields = ('first_name','last_name','email','username','password1','password2')
+#         widgets = {
+#             'first_name':forms.TextInput(attrs={'class':'form-control'}),
+#             'last_name':forms.TextInput(attrs={'class':'form-control'}),
+#             'email': forms.TextInput(attrs={'class':'form-control'}),
+#             'username': forms.TextInput(attrs={'class':'form-control'}),
+#             'password1': forms.TextInput(attrs={'class':'form-control'}),
+#             'password2': forms.TextInput(attrs={'class':'form-control'}),
+#         }
 
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
-        self.fields['first_name'] = 'First Name'
-        self.fields['last_name'] = 'Last Name'
-        self.fields['username'].label = 'Display Name'
-        self.fields['email'].label = 'Email Address'
+#     def __init__(self,*args,**kwargs):
+#         super().__init__(*args,**kwargs)
+#         self.fields['first_name'] = 'First Name'
+#         self.fields['last_name'] = 'Last Name'
+#         self.fields['username'].label = 'Display Name'
+#         self.fields['email'].label = 'Email Address'
+
+class SubscriberForm(AddressMixin):
+    first_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    last_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    email = forms.EmailField(
+        required=True, widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    password1 = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control', 'type':'password'})
+    )
+    password2 = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control', 'type':'password'})
+    )

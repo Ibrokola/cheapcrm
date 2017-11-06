@@ -1,11 +1,15 @@
 from django.db import models
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.conf import settings
 
+from decouple import config
 
-class UserNew(auth.models.User,auth.models.PermissionsMixin):
-    def __str__(self):
-        return self.username
+import stripe
+
+# class UserNew(auth.models.User,auth.models.PermissionsMixin):
+#     def __str__(self):
+#         return self.username
 
 
 
@@ -22,3 +26,31 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return u"%s's Subscription Info" % self.user_sub
+
+
+    def charge(self, request, email, fee):
+        #Set secret key
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        #Token transferred to stripe
+        token = request.POST['stripeToken']
+
+        #Create a Customer
+        stripe_customer = stripe.Customer.create(
+            card=token,
+            description=email
+        )
+
+        # Save Stripe ID to customers profile
+        self.stripe_id = stripe_customer.id
+        self.save()
+
+        #Charge customer instead of card
+        stripe.Charge.create(
+            amount=fee,
+            currency="cad",
+            customer=stripe_customer.id
+        )
+        return stripe_customer
+
+
