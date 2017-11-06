@@ -5,8 +5,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class SubscriberForm(UserCreationForm):
-    fields = ('email','username','password1','password2')
-    model = get_user_model()
+    
+    class Meta:
+        fields = ('email','username','password1','password2')
+        model = get_user_model()
 
 
     def __init__(self,*args,**kwargs):
