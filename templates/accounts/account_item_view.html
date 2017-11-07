@@ -2,7 +2,7 @@
     <h3 class="ad-mh">{{ account.name }}
         {# Account Edit Link #}
         <span>
-            <a href="" class="ad-control edit-account btn btn-link">Edit</a>
+            <a href="{{ account.get_update_url }}" class="ad-control edit-account btn btn-link">Edit</a>
         </span>
     </h3>
 </div>

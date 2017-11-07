@@ -34,7 +34,7 @@ class Account(models.Model):
 
 
     def get_update_url(self):
-        return reverse('account_update', args=[self.uuid])
+        return reverse('accounts:account_update', args=[self.uuid])
 
     def get_delete_url(self):
-        return reverse('account_delete', args=[self.uuid])
+        return reverse('accounts:account_delete', args=[self.uuid])
