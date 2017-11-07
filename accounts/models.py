@@ -30,7 +30,7 @@ class Account(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('account_detail', args=[self.uuid])
+        return reverse('accounts:account_detail', args=[self.uuid])
 
 
     def get_update_url(self):
