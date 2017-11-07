@@ -6,7 +6,7 @@ from .models import Account
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('name', 'desc', 'address_one', 'address_two', 'city', 'state', 'phone')
+        fields = ('name', 'desc', 'address_one', 'address_two', 'city', 'province', 'phone')
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -34,7 +34,7 @@ class AccountForm(forms.ModelForm):
             ),
             'city': forms.TextInput(
                 attrs={
-                    'placeholder':'City,
+                    'placeholder':'City',
                     'class':'gi-form-addr form-control'
                 }
             ),

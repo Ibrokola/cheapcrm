@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'l/$', AccountList.as_view(), name='account_list'),
     url(r'p/(?P<uuid>[\w-]+)/$', account_detail, name='account_detail'),
     url(r'new/$', account_cru, name='account_new'),
+    url(r'edit/$', account_cru, name='account_update'),
 ]
