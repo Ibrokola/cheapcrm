@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseForbidden
 
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
@@ -32,3 +33,17 @@ class AccountList(ListView):
     @method_decorator(login_required)
     def dispatch(self,*args,**kwargs):
         return super(AccountList, self).dispatch(*args, **kwargs)
+
+
+@login_required()
+def account_detail(request, uuid):
+
+    account = Account.objects.get(uuid=uuid)
+    if account.owner != request.user:
+        return HttpResponseForbidden()
+    
+    template = 'accounts/account_detail.html'
+    context ={
+        'account': account,
+    }
+    return render(request, template, context)
