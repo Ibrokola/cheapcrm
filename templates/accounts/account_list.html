@@ -7,7 +7,10 @@
     <div id="al-container" class="side-p">
         <div id="al-control">
             <h3 class="ad-mh">Account List
-                {# Add Account Link #}
+                <span class="justify-content-end">
+                    <a href="{% url 'accounts:account_new' %}" class="btn-shadow btn-shadow-warning p-r-none">+ Add New Account</a>
+                </span>
+
             </h3>
                 <form action="{% url 'accounts:account_list' %}" method="GET" class="search-form" autocomplete="on">
                     <div class="row">

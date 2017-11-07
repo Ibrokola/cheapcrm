@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponseForbidden,Http404
+from django.http import HttpResponseForbidden,Http404,HttpResponseRedirect 
 
+from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-
+from .forms import AccountForm
 from .models import Account
 
 
@@ -46,4 +47,26 @@ def account_detail(request, uuid):
     context ={
         'account': account,
     }
+    return render(request, template, context)
+
+@login_required()
+def account_cru(request):
+    if request.method == 'POST':
+        form = AccountForm(request.POST)
+        if form.is_valid():
+            account = form.save(commit=False)
+            account.owner = request.user
+            account.save()
+            redirect_url = reverse(
+                'accounts:account_detail', args=(account.uuid)
+            )
+            return HttpResponseRedirect(redirect_url)
+    else:
+        form = AccountForm()
+
+    context = {
+        'form': form,
+    }
+    template = 'accounts/account_cru.html'
+
     return render(request, template, context)
