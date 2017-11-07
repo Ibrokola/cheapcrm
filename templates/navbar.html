@@ -28,8 +28,8 @@
                 </a>
                 <div class="dropdown-menu" role="menu">
                 {% if user.is_authenticated %}
+                    <a class="dropdown-item" href="{% url 'accounts:account_list' %}">Accounts</a>
                     <a class="dropdown-item" href="/logout/">Logout</a>
-                    <a class="dropdown-item" href="">Portal</a>
                 {% else %}
                     <a class="dropdown-item" href="/login/">Login</a>
                     <a class="dropdown-item" href="{% url 'subscribers:sub_new' %}">Register</a>
