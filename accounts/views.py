@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 from .forms import AccountForm
 from .models import Account
 
+from contacts.models import Contact
+
 
 
 class AccountList(ListView):
@@ -43,11 +45,15 @@ def account_detail(request, uuid):
     account = Account.objects.get(uuid=uuid)
     if account.owner != request.user:
         return HttpResponseForbidden()
+
+    contacts = Contact.objects.filter(account=account)
     
-    template = 'accounts/account_detail.html'
+    
     context ={
         'account': account,
+        'contacts': contacts,
     }
+    template = 'accounts/account_detail.html'
     return render(request, template, context)
 
 @login_required()
