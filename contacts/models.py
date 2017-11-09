@@ -28,7 +28,7 @@ class Contact(models.Model):
         return u'%s %s' % (self.first_name, self.last_name)
 
     def __str__(self):
-        return u'%s' % self.full_Name
+        return u'%s' % self.full_name
     
     def get_absolute_url(self):
         return reverse('contact:contact_detail', args=[self.uuid])
@@ -39,5 +39,5 @@ class Contact(models.Model):
 
 
     def get_delete_url(self):
-        return reverse('contact:contact_delete', args=[self.uuid])
+        return reverse('contact:contact_delete', args=[self.id])
 
