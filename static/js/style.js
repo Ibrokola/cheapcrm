@@ -6,7 +6,7 @@ $(document).ready(function() {
     });
 
 
-    // Contact - AJAX to get the COntact Add form
+    // Contact - AJAX to get the Contact Add form
     $('#cd-container').delegate('#new-contact', 'click', function(e){
         e.preventDefault();
         $.get($(this).attr('href'), function(data) {
@@ -23,7 +23,7 @@ $(document).ready(function() {
             $('#new-contact').hide();
             that.parent().parent().remove();
             $('#cd-body'.append(data))
-        })
+        });
     });
 
     // Contact - Use AJAX to save the Contact Add Form

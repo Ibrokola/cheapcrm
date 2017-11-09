@@ -10,6 +10,8 @@ from django.views.generic import DeleteView
 from .models import Contact
 from .forms import ContactForm
 
+from accounts.models import Account
+
 
 
 
@@ -107,7 +109,7 @@ class ContactDelete(ContactMixin, DeleteView):
         if not obj.owner == self.request.user:
             raise Http404
         # Specifies which account the contact being deleted is related to
-        account = Account.objects.get(id=obj.account.id)
+        account = Account.objects.get(id=obj.account.id,)
         self.account = account
         return obj
 

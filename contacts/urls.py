@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'c/new/$', contact_cru, name='contact_new'),
     url(r'c/(?P<uuid>[\w-]+)/$', contact_detail, name='contact_detail'),
     url(r'c/edit/(?P<uuid>[\w-]+)/$', contact_cru, name='contact_update'),
-    url(r'c/(?P<pk>[\w-]+)/delete/$', ContactDelete.as_view(), name='contact_delete'),
+    url(r'c/delete/(?P<pk>[\w-]+)/$', ContactDelete.as_view(), name='contact_delete'),
 ]
