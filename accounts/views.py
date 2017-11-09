@@ -12,6 +12,7 @@ from .models import Account
 
 from contacts.models import Contact
 from communications.models import Communication
+from communications.forms import CommunicationForm
 
 
 class AccountList(ListView):
@@ -49,11 +50,13 @@ def account_detail(request, uuid):
     contacts = Contact.objects.filter(account=account)
     communications = Communication.objects.filter(account=account).order_by('-created_on')
     
-    
+    form = CommunicationForm()
+
     context ={
         'account': account,
         'contacts': contacts,
         'communications': communications,
+        'form': form
     }
     template = 'accounts/account_detail.html'
     return render(request, template, context)

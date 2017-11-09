@@ -14,7 +14,7 @@ class AccountForm(forms.ModelForm):
                     'class':'col-md-12 form-control'
                 }
             ),
-            'desc': forms.TextInput(
+            'desc': forms.Textarea(
                 attrs={
                     'placeholder':'Enter a description',
                     'class':'form-control'
