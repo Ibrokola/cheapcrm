@@ -34,14 +34,21 @@ def comm_cru(request, uuid=None, account=None):
             # comm.owner = request.user
             # comm.save()
             form.save()
+
             # return the user to the account detail view
-            reverse_url = reverse('accounts:account_detail', args=(account.uuid,))
-            return HttpResponseRedirect(reverse_url)
+            if request.is_ajax():
+                return render(request, 'communications/comm_item_view.html',{'comm':comm, 'account':account}
+            )
+            else:
+                reverse_url = reverse('accounts:account_detail', args=(account.uuid,))
+                return HttpResponseRedirect(reverse_url)
         else:
+            # if the form isn't valid, still fetch the account so it can be passed to the template 
             account = form.cleaned_data['account']
     else:
         form = CommunicationForm(instance=comm)
 
+    # this is used to fetch the account if it exists as a URL parameter
     if request.GET.get('account', ''):
         account = Account.objects.get(id=request.GET.get('account', ''))
 
@@ -50,7 +57,11 @@ def comm_cru(request, uuid=None, account=None):
         'comm': comm,
         'account': account
     }
-    template = 'communications/comm_cru.html'
+    
+    if request.is_ajax():
+        template = 'communications/comm_item_form.html'
+    else:
+        template = 'communications/comm_cru.html'
 
     return render(request, template, context)
 
