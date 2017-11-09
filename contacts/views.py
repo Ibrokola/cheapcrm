@@ -3,8 +3,28 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
+from django.utils.decorators import method_decorator
+
+from django.views.generic import DeleteView
+
 from .models import Contact
 from .forms import ContactForm
+
+
+
+
+
+
+class ContactMixin(object):
+    model = Contact
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({'object_name':'Contact'})
+        return kwargs
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ContactMixin, self).dispatch(*args, **kwargs)
 
 
 @login_required()
@@ -77,3 +97,21 @@ def contact_detail(request, uuid):
     }
 
     return render(request, template, context)
+
+
+class ContactDelete(ContactMixin, DeleteView):
+    template_name = 'object_confirm_delete.html'
+
+    def get_object(self, queryset=None):
+        obj = super(ContactDelete, self).get_object()
+        if not obj.owner == self.request.user:
+            raise Http404
+        # Specifies which account the contact being deleted is related to
+        account = Account.objects.get(id=obj.account.id)
+        self.account = account
+        return obj
+
+    def get_success_url(self):
+        return reverse(
+            'accounts:account_detail', args=(self.account.uuid,)
+        )

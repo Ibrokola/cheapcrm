@@ -10,6 +10,6 @@
     <td class="ci-td-p-r">
         {# Contact Delete Link #}
         <a class="cancel"
-            href=""></a>
+            href="{{ contact.get_delete_url }}?account={{ account.id }}">Delete</a>
     </td>
 </tr>
