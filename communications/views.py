@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -6,16 +6,23 @@ from django.http import HttpResponseForbidden
 
 from .models import Communication
 from .forms import CommunicationForm
-
+from accounts.models import Account
 
 
 
 
 @login_required()
-def comm_cru(request):
+def comm_cru(request, uuid=None, account=None):
+
+    if uuid:
+        comm = get_object_or_404(Communication, uuid=uuid)
+        if comm.owner != request.user:
+            return HttpResponseForbidden()
+    else:
+        comm = Communication(owner=request.user)
     
-    if request.POST:
-        form = CommunicationForm(request.POST)
+    if request.method == 'POST':
+        form = CommunicationForm(request.POST, instance=comm)
         if form.is_valid():
             #make sure the user owns the account
             account = form.cleaned_data['account']
@@ -23,23 +30,29 @@ def comm_cru(request):
                 return HttpResponseForbidden()
 
             # save the data
-            comm = form.save(commit=False)
-            comm.owner = request.user
-            comm.save()
+            # comm = form.save(commit=False)
+            # comm.owner = request.user
+            # comm.save()
+            form.save()
             # return the user to the account detail view
-            reverse_url = reverse('accounts:account_detail.html', args=(account.uuid,))
+            reverse_url = reverse('accounts:account_detail', args=(account.uuid,))
             return HttpResponseRedirect(reverse_url)
+        else:
+            account = form.cleaned_data['account']
     else:
-        form = CommunicationForm()
+        form = CommunicationForm(instance=comm)
+
+    if request.GET.get('account', ''):
+        account = Account.objects.get(id=request.GET.get('account', ''))
 
     context = {
         'form': form,
+        'comm': comm,
+        'account': account
     }
     template = 'communications/comm_cru.html'
 
     return render(request, template, context)
-
-
 
 
 @login_required()
@@ -51,3 +64,12 @@ def comm_detail(request, uuid):
     template = 'communications/comm_detail.html'
     context = {'comm':comm}
     return render(request, template, context)
+
+
+
+
+
+
+
+
+

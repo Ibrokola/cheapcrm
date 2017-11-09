@@ -1,0 +1,27 @@
+<form id="comm-form" action="{% if comm.uuid %}{% url 'comm:comm_update' %}{% else %}{% url 'comm:comm_new' %}{% endif %}" method="POST">
+    {% csrf_token %}
+    <p>{{ form.subject }}</p>
+    <div id="comm-form-internals">
+        <p>{{ form.subject.errors }}</p>
+        <p>{{ form.notes }}</p>
+        <p>{{ form.notes.errors }}</p>
+        <table class="table comm-form">
+            <tbody>
+                <tr>
+                    <td>{{ form.kind }}</td>
+                    <td>{{ form.date }}</td>
+                    <td class="comm-submit-td">
+                        <input type="submit" class="btn-shadow btn-shadow-success btn-shadow-sm comm-submit" value="Save">
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ form.kind.errors }}</td>
+                    <td>{{ form.date.errors }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" id="id_account" name="account" value="{% if request.GET.account %}{{ request.GET.account }}{% else %}{{ account.id }}{% endif %}">
+    <input type="hidden" id="id_owner" name="owner" value={{ user.username }}>
+</form>

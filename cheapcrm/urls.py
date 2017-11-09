@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^subscribe/', include('subscribers.urls',namespace='subscribers')),
     url(r'^account/', include('accounts.urls',namespace='accounts')),
     url(r'^contact/', include('contacts.urls',namespace='contact')),
-    # url(r'^com/', include('communications.urls',namespace='comm')),
+    url(r'^comm/', include('communications.urls',namespace='comm')),
     url(r'^accounts/',include('django.contrib.auth.urls')),
     url(r'^$', HomePage.as_view(), name='home')
 ]
