@@ -1,10 +1,10 @@
 <li class="co-item list-unstyled" style="padding-top: 10px;">
     <h6 class="co-item-h">{{ comm.subject }} 
         <span>
-            {# Comm Delete URL #}
-            <a href="" class="cancel comm-control"></a>
             {# Comm Edit URL #}
             <a href="{{ comm.get_update_url }}?account={{ account.id }}" class="pen comm-control comm-edit">Edit</a>
+            {# Comm Delete URL #}
+            <a href="{{ comm.get_delete_url }}?account={{ account.id }}" class="cancel comm-control">x</a>
         </span>
     </h6>
     <p class="co-item-date"on {{ comm.date }}></p>
