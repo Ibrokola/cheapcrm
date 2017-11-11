@@ -55,7 +55,7 @@ def subscriber_new(request):
             address_one = form.cleaned_data['address_one']
             address_two = form.cleaned_data['address_two']
             city = form.cleaned_data['city']
-            state = form.cleaned_data['state']
+            province = form.cleaned_data['province']
             sub = Subscriber(address_one=address_one, address_two=address_two, province=province, user_sub=user)
             sub.save()
 
@@ -77,9 +77,9 @@ def subscriber_new(request):
                     return reverse_lazy('account_list')
                 else:
                     return HttpResponseRedirect(reverse('subscribers:sub_new'))
-            # return reverse_lazy('login')
-    else:
-        form = SubscriberForm()
+            return reverse_lazy('login')
+    else: form = SubscriberForm()
+    
 
     template='subscribers/subscriber_new.html'
     context = {'form':form,'STRIPE_PUBLISHABLE_KEY':settings.STRIPE_PUBLISHABLE_KEY}

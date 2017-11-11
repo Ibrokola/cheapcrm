@@ -6,32 +6,33 @@
 <div id="content-container" class="container p-none" style="padding-top:100px;">
     <div id="al-container" class="side-p">
         <div id="al-control">
-            <h3 class="ad-mh">Account List
-                <span class="justify-content-end">
+            <h4>Welcome {{ user }}</h4>
+                <div class="search-field clearfix">
+                    <form action="{% url 'accounts:account_list' %}" method="GET" class="input-search float-right" autocomplete="on">
+                        <i class="ion-android-search"></i>
+                        <input type="text" name="account" value="{{ request.GET.account }}" class="input-search" placeholder="Search...">
+                        <!-- <button type="submit">Search</button> -->
+                        <!-- <input type="submit" value="Search" class="btn-shadow btn-shadow-success btn-shadow-md"> -->
+                    </form>
+                </div>
+            <hr>
+            <h3 class="ad-mh">Accounts Owned
+                <span class="float-right">
                     <a href="{% url 'accounts:account_new' %}" class="btn-shadow btn-shadow-warning p-r-none">+ Add New Account</a>
                 </span>
 
             </h3>
-                <form action="{% url 'accounts:account_list' %}" method="GET" class="search-form" autocomplete="on">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="text" id="al-search" name="account" value="{{ request.GET.account }}" class="form-control" placeholder="Search...">
-                            <!-- <button type="submit">Search</button> -->
-                        </div>
-                        <div class="col-md-4"><input type="submit" value="Search" class="btn-shadow btn-shadow-success btn-shadow-md"></div>
-                   </div>
-                </form>
         </div>
         {# List of Accounts #}
         <br>
-        <ul id="al-group" class="strip-list">
+        <div id="al-group" class="strip-list">
             {% for account in accounts %}
-                <li class="al-item list-unstyled">
-                    <a href="{{ account.get_absolute_url }}"><h4 class="al-name">{{ account.name }}</h4></a>
-                    <span class="al-created">created on {{ account.created_on }}</span>
-                </li>
+                <div class="al-item clearfix">
+                    <a href="{{ account.get_absolute_url }}" style="" class="float-left"><h4 class="al-name">{{ account.name }}</h4></a><span class="al-created float-right">created on {{ account.created_on }}</span>
+                </div>
+                <hr>
             {% endfor %}
-        </ul>
+            </div>
         {% if is_paginated %}
             <div id="al-paginate">
                 <ul class="strip-list al-pgnt-list">
